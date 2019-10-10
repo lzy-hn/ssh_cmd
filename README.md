@@ -8,6 +8,14 @@ Build
 
     $ rebar3 compile
 
+添加到你的項目中, 修改rebar.config:
+
+    {deps, [
+        ...
+        {ssh_cmd, {git, "https://github.com/hsieh/ssh_cmd.git", {branch, master}}}
+    ]}.
+
+
 Example
 -------
 
