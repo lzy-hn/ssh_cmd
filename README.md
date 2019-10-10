@@ -1,2 +1,9 @@
-# ssh_cmd
-erlang ssh
+ssh_cmd
+=====
+
+An OTP application
+
+Build
+-----
+
+    $ rebar3 compile
