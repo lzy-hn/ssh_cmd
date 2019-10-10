@@ -5,7 +5,8 @@
   {mod, {ssh_cmd_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    ssh
    ]},
   {env,[]},
   {modules, []},
