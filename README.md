@@ -11,7 +11,11 @@ Build
 Example
 -------
 
-    1> ssh:start().
+    erl -pa _build/default/lib/ssh_cmd/ebin/
+    
+    1> application:ensure_all_started(ssh_cmd).
+    {ok,[crypto,asn1,public_key,ssh,ssh_cmd]}
+
     2> ssh_cmd:run("10.0.111.215", 22, "/tmp", "pwd", [{user, "yatung"}, {password, "123456"}]).
     
     {ok,<<"/tmp\n">>,0}
@@ -25,3 +29,4 @@ Example
     5> ssh_cmd:async_wait(ARef).
     
     {ok,<<"/home/yatung\n">>,0}
+
