@@ -120,6 +120,9 @@ ssh_ret_s(Env) ->
     Owner ! {ok, {Ref, self()}, Ret, Status}.
 
 ssh_async_ret(Env) ->
+    ssh_async_loop(Env).
+
+ssh_async_loop(Env) ->
     Ref = proplists:get_value(ref, Env),
     Owner = proplists:get_value(owner, Env),
     receive
@@ -127,13 +130,13 @@ ssh_async_ret(Env) ->
             try link(NewOwner) of
                 true ->
                     unlink(Owner),
-                    Env1 = proplists:delete(owner, Env),
                     Owner ! {ok, {Ref, self()}, controlling_process},
-                    ssh_async_ret([{owner, NewOwner}|Env1])
+                    %% ssh_async_loop([{owner, NewOwner}|proplists:delete(owner, Env)])
+                    ssh_async_loop([{owner, NewOwner}|Env])
             catch
                 Class:Reason ->
                     Owner ! {error, {Class, Reason}, controlling_process},
-                    ssh_async_ret(Env)
+                    ssh_async_loop(Env)
             end;
         {async_wait, Ref} ->
             ssh_ret_s(Env)
